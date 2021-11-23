@@ -2,8 +2,8 @@
 2) Clasa Flight (DONE)
 3) Clasa Auth(sa folosesc singleton) (DONE)
 4) Metoda sa verific daca parola indeplineste anumite criterii(DONE)
-5) Metoda sa verific daca exista un user care are acelasi nume deja
-6) Clasa Register care mosteneste Auth si care sa inregistreze un user(sa ii bage datele in fisier etc)
+5) Metoda sa verific daca exista un user care are acelasi nume deja!!NOT CASE SENSITIVE!!(DONE)
+6) Clasa Register care mosteneste Auth si care sa inregistreze un user(sa ii bage datele in fisier etc)(DONE)
 7) Clasa Login care mosteneste Auth si care sa logheze un user
 8) Clasa FileWriter pe care sa o folosesc sa implementez Writere pentru fiecare tip de fisier de care o sa am nevoie(User, Flight deocamdata, vedem pe parcurs ce mai e)
 9) Sa poti sa vezi toate optiunile existente in aplicatie(ceva mesaj care sa le prezinte pe toate si codul lor)

@@ -18,26 +18,28 @@ bool AuthSingleton::existsUser(std::string name) {
             return true;
         }
     }
-
     return false;
 }
 
 bool AuthSingleton::validatePassword(std::string password) {
     if (password.length() < this->minPassLength) {
-        // throw "Your password is too short. Minimum " + std::to_string(this->minPassLength) + " characters."; 
         return false;
     }
 
-    bool foundDigit = false;
-    for (int i = 0; i <= 9; ++i) {
-        if (password.find(i) != std::string::npos) {
-            foundDigit = true;
+    int count = 0; 
+    // Check digits from 0 to 9 
+    for(int i = 0; i <= 9; i++) { 
+        // To convert int to string 
+        std::string str1 = std::to_string(i); 
+
+        if (password.find(str1) != std::string::npos) {
+            count = 1; 
             break;
         }
-    }
-    if (!foundDigit) {
-        return false;
-    }
+            
+    } 
+    if (count == 0) 
+        return false; 
 
     if (!((password.find("@") != std::string::npos) ||
         (password.find("#") != std::string::npos) ||
@@ -62,7 +64,7 @@ bool AuthSingleton::validatePassword(std::string password) {
         (password.find("|") != std::string::npos)))
     return false;
 
-    int count = 0; 
+    count = 0; 
   
     // Checking capital letters 
     for (int i = 65; i <= 90; i++) { 

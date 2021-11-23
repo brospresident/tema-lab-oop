@@ -3,10 +3,13 @@
 
 #include "./Auth.h"
 #include "../Flight/flight.h"
+#include "../FileWriter/FileWriter.h"
+#include "../User/User.h"
 
 class Register : public AuthSingleton {
     public:
-        bool tryRegisterUser(std::string name, std::string password, std::string email, int balance, std::vector<Flight> reservedFlights);
+        User* tryRegisterUser(std::string name, std::string password, std::string confirmPassword, std::string email);
+        User* registerUser(std::string name, std::string encodedPassword, std::string email);
 };
 
 #endif

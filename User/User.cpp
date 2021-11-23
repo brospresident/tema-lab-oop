@@ -1,24 +1,29 @@
 #include "./User.h"
 
-User::User(int id, std::string name, std::string password, std::string email, int balance) {
-    this->id = id;
+User::User() {
+    this->name = "";
+    this->password = "";
+    this->email = "";
+    this->balance = 0;
+    this->isLoggedIn = false;
+    this->isOperator = false;
+}
+
+
+User::User(std::string name, std::string email) {
+    this->name = name;
+    this->password = "";
+    this->email = email;
+    this->balance = 0;
+    this->isLoggedIn = true;
+    this->isOperator = false;
+}
+
+User::User(std::string name, std::string password, std::string email, int balance) {
     this->name = name;
     this->password = password;
     this->email = email;
     this->balance = balance;
-}
-
-User::User(int id, std::string name, std::string password, std::string email, int balance, std::vector<Flight> reservedFlights) {
-    this->id = id;
-    this->name = name;
-    this->password = password;
-    this->email = email;
-    this->balance = balance;
-    this->reservedFlights = reservedFlights;
-}
-
-int User::getId() {
-    return this->id;
 }
 
 std::string User::getName() {
@@ -37,14 +42,6 @@ int User::getBalance() {
     return this->balance;
 }
 
-std::vector<Flight> User::getReservedFlights() {
-    return this->reservedFlights;
-}
-
-void User::setId(int id) {
-    this->id = id;
-}
-
 void User::setName(std::string name) {
     this->name = name;
 }
@@ -61,19 +58,28 @@ void User::setBalance(int balance) {
     this->balance = balance;
 }
 
-void User::setReservedFlights(std::vector<Flight> reservedFlights) {
-    this->reservedFlights = reservedFlights;
+// void User::removeReservedFlight(Flight flight) {
+//     for (int i = 0; i < this->reservedFlights.size(); i++) {
+//         if (this->reservedFlights[i] == flight) {
+//             this->reservedFlights.erase(this->reservedFlights.begin() + i);
+//         }
+//     }
+// }
+
+bool User::getIsLoggedIn() {
+    return this->isLoggedIn;
 }
 
-void User::addReservedFlight(Flight flight) {
-    this->reservedFlights.push_back(flight);
+bool User::getIsOperator() {
+    return this->isOperator;
 }
 
-void User::removeReservedFlight(Flight flight) {
-    for (int i = 0; i < this->reservedFlights.size(); i++) {
-        if (this->reservedFlights[i] == flight) {
-            this->reservedFlights.erase(this->reservedFlights.begin() + i);
-        }
-    }
+void User::setOperator(bool isOperator) {
+    this->isOperator = isOperator;
 }
+
+void User::setLoggedIn(bool isLoggedIn) {
+    this->isLoggedIn = isLoggedIn;
+}
+
 
