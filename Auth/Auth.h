@@ -26,8 +26,6 @@ class AuthSingleton {
                 - at least one special character
         */
         bool validatePassword(std::string password);
-        std::string encodePassword(const std::string);
-        std::string decodePassword(const std::string);
 };
 
 

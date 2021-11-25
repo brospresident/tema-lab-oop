@@ -1,12 +1,16 @@
 #include <iostream>
 
-#include "./Auth/Register.h"
 #include "./User/User.h"
+#include "./RSA/RSA.h"
+#include "./Auth/Register.h"
 
 int main () {
     std::cout << "Welcome to BemRom application!" << std::endl;
 
     User* user = new User();
+
+    RSA rsa;
+    std::cout << "RSA: " << rsa.encryptPassword("p") << std::endl;
 
     while (true) {
         try {

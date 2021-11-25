@@ -3,8 +3,9 @@
 
 #include "./Auth.h"
 #include "../Flight/flight.h"
-#include "../FileWriter/FileWriter.h"
 #include "../User/User.h"
+#include "../RSA/RSA.h"
+#include "../FileWriter/UserWriter.h"
 
 class Register : public AuthSingleton {
     public:

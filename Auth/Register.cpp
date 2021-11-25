@@ -13,20 +13,33 @@ User* Register::tryRegisterUser(std::string name, std::string password, std::str
         if (this->existsUser(name)) {
             throw "User already exists";
         }
+
+        RSA rsa;
+
+        std::string encodedPassword = rsa.encryptPassword(password);
+
+        return this->registerUser(name, encodedPassword, email);
     }
     catch (char const* excp) {
         std::cout << excp << std::endl;
     }
 
-    return this->registerUser(name, password, email);
+    return nullptr;
 }
 
 User* Register::registerUser(std::string name, std::string encodedPassword, std::string email) {
-    FileWriter* fw = new FileWriter(name, "./Data/Users/", "txt");
-    fw->file << name << std::endl << encodedPassword << std::endl << email << std::endl << 0 << std::endl << true << std::endl << false << std::endl;
+    UserWriter* uw = new UserWriter(name, "./Data/Users/", "txt");
+    std::vector<std::string> userData = {  name,
+                                            encodedPassword,
+                                            email,
+                                            "0",
+                                            "1",
+                                            "0"
+                                        };
+    uw->write(userData); 
     std::cout << "User " << name << " registered successfully" << std::endl;
-    delete fw;
-    return new User(
+    delete uw;
+    return new User (
         name,
         email
     );
