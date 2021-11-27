@@ -23,26 +23,27 @@ class User {
             @param name: The name of the user.
             @param email: The email of the user.
         */
-        User(std::string name, std::string email);
+        User(std::string name, std::string password, std::string email);
         User(std::string name, std::string password, std::string email, int balance);
-        User(std::string name, std::string password, std::string email, int balance, std::vector<Flight> reservedFlights);
+        User(std::string name, std::string password, std::string email, int balance, bool isOperator, bool isLoggedIn);
         std::string getName();
         std::string getPassword();
         std::string getEmail();
         int getBalance();
-        //std::vector<Flight> getReservedFlights();
         void setName(std::string name);
         void setPassword(std::string password);
         void setEmail(std::string email);
         void setBalance(int balance);
-        //void setReservedFlights(std::vector<Flight> reservedFlights);
-        //void addReservedFlight(Flight flight);
-        //void removeReservedFlight(Flight flight);
         void print();
         bool getIsOperator();
         void setOperator(bool isOperator);
         bool getIsLoggedIn();
         void setLoggedIn(bool isLoggedIn);
+
+        /*
+            This function will print user information.
+        */
+        void showAccountInformation();
 
 };
 

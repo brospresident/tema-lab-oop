@@ -1,6 +1,5 @@
 andrei
 P;4M8
-a@a.c
+a@a.a
 0
-true
-false
+1

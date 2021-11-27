@@ -5,5 +5,5 @@ FileReader::FileReader(std::string fileName, std::string filePath, std::string f
     this->filePath = filePath;
     this->fileExtension = fileExtension;
 
-    this->file.open(this->filePath + this->fileName + this->fileExtension, std::fstream::in);
+    this->file = std::fstream(this->filePath + this->fileName + "." + this->fileExtension, std::ios::in);
 }

@@ -10,9 +10,9 @@ User::User() {
 }
 
 
-User::User(std::string name, std::string email) {
+User::User(std::string name, std::string password, std::string email) {
     this->name = name;
-    this->password = "";
+    this->password = password;
     this->email = email;
     this->balance = 0;
     this->isLoggedIn = true;
@@ -24,6 +24,15 @@ User::User(std::string name, std::string password, std::string email, int balanc
     this->password = password;
     this->email = email;
     this->balance = balance;
+}
+
+User::User(std::string name, std::string password, std::string email, int balance, bool isOperator, bool isLoggedIn) {
+    this->name = name;
+    this->password = password;
+    this->email = email;
+    this->balance = balance;
+    this->isOperator = isOperator;
+    this->isLoggedIn = isLoggedIn;
 }
 
 std::string User::getName() {
@@ -80,6 +89,12 @@ void User::setOperator(bool isOperator) {
 
 void User::setLoggedIn(bool isLoggedIn) {
     this->isLoggedIn = isLoggedIn;
+}
+
+void User::showAccountInformation() {
+    std::cout << "Name: " << this->name << std::endl;
+    std::cout << "Email: " << this->email << std::endl;
+    std::cout << "Balance: " << this->balance << std::endl;
 }
 
 

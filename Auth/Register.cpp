@@ -24,7 +24,7 @@ User* Register::tryRegisterUser(std::string name, std::string password, std::str
         std::cout << excp << std::endl;
     }
 
-    return nullptr;
+    return new User();
 }
 
 User* Register::registerUser(std::string name, std::string encodedPassword, std::string email) {
@@ -34,13 +34,13 @@ User* Register::registerUser(std::string name, std::string encodedPassword, std:
                                             email,
                                             "0",
                                             "1",
-                                            "0"
                                         };
     uw->write(userData); 
     std::cout << "User " << name << " registered successfully" << std::endl;
     delete uw;
     return new User (
         name,
+        encodedPassword,
         email
     );
 }

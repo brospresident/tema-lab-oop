@@ -11,7 +11,7 @@
 class Login : public AuthSingleton {
     public:
         User* tryLoginUser(std::string name, std::string password);
-        User* loginUser(std::string name, std::string encodedPassword);
+        User* loginUser(std::vector<std::string> const);
 };
 
 #endif

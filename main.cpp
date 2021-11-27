@@ -3,14 +3,12 @@
 #include "./User/User.h"
 #include "./RSA/RSA.h"
 #include "./Auth/Register.h"
+#include "./Auth/Login.h"
 
 int main () {
     std::cout << "Welcome to BemRom application!" << std::endl;
 
     User* user = new User();
-
-    RSA rsa;
-    std::cout << "RSA: " << rsa.encryptPassword("p") << std::endl;
 
     while (true) {
         try {
@@ -22,6 +20,9 @@ int main () {
 
             if (option == 0) break;
             else if (option == 1) {
+                if (user->getIsLoggedIn()) {
+                    throw "You are already logged in!";
+                }
                 std::cout << "Welcome to our register page:" << std::endl;
                 std::cout << "Please type in the following information: " << std::endl;
                 
@@ -48,12 +49,28 @@ int main () {
                 delete registerInstance;
             } 
             else if (option == 2) {
+                if (user->getIsLoggedIn()) {
+                    throw "You are already logged in!";
+                }
                 std::cout << "Welcome to our login page:" << std::endl;
                 std::cout << "Please type in the following information: " << std::endl;
+
+                std::cout << "Name: " << std::endl;
+                std::string name;
+                std::cin >> name;
+
+                std::cout << "Password: " << std::endl;
+                std::string password;
+                std::cin >> password;
+
+                Login* loginInstance = new Login();
+                user = loginInstance->tryLoginUser(name, password);
+
+                delete loginInstance;
             }
             else if (option == 3) {
                 if (user->getIsLoggedIn()) {
-                    std::cout << "Name: " << user->getName() << std::endl;
+                    user->showAccountInformation();
                 }
                 else throw "You are not logged in!";
             } 
