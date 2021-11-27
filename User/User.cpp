@@ -94,7 +94,43 @@ void User::setLoggedIn(bool isLoggedIn) {
 void User::showAccountInformation() {
     std::cout << "Name: " << this->name << std::endl;
     std::cout << "Email: " << this->email << std::endl;
-    std::cout << "Balance: " << this->balance << std::endl;
+    std::cout << "Balance: $" << this->balance << std::endl;
+    if (this->isOperator) {
+        std::cout << ">> You are logged in as an operator." << std::endl;
+    }
+}
+
+void User::saveUserData() {
+    UserWriter* fr = new UserWriter(this->getName(), "./Data/Users/", "txt");
+
+    bool isOperator = this->isOperator;
+    int balance = this->balance;
+    
+    std::vector<std::string> userData = {  this->name,
+                                            this->password,
+                                            this->email,
+                                            std::to_string(balance),
+                                            std::to_string(isOperator),
+                                        };
+
+    fr->write(userData);
+}
+
+void User::topUpBalance(int amount) {
+    try {
+        if (!this->isLoggedIn) {
+            throw "You must be logged in!";
+        }
+        if (amount < 0) {
+            throw "Amount must be higher than 0.";
+        }
+        this->balance += amount;
+        std::cout << "Successfully deposited $" << amount << " to your account." << std::endl;
+        this->saveUserData();
+    }
+    catch (const char* msg) {
+        std::cout << msg << std::endl;
+    }
 }
 
 

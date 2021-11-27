@@ -8,13 +8,18 @@
 int main () {
     std::cout << "Welcome to BemRom application!" << std::endl;
 
-    User* user = new User();
+    std::unique_ptr<User> user = std::make_unique<User>();
 
     while (true) {
         try {
             std::cout << "Please type your option(0 - exit the app | 1 - register | 2 - login " << std::endl;
             std::cout << "3 - Account information | 4 - Find flight by origin and destination | 5 - Book flight" << std::endl;
             std::cout << "6 - Top up your balance | 7 - See what flights you reserved since you joined us):" << std::endl;
+            if (user->getIsOperator()) {
+                std::cout << "Your operator rights: " << std::endl;
+                std::cout << "8 - Add new flight | 9 - Delete flight | 10 - Change flight information" << std::endl;
+            }
+
             int option;
             std::cin >> option;
 
@@ -73,7 +78,13 @@ int main () {
                     user->showAccountInformation();
                 }
                 else throw "You are not logged in!";
-            } 
+            }
+            else if (option == 6) {
+                std::cout << "Type in the amount of money you want to put in your wallet: ";
+                int amount;
+                std::cin >> amount;
+                user->topUpBalance(amount);
+            }
             else {
                 std::cout << "Invalid option!" << std::endl;
             }
@@ -83,6 +94,5 @@ int main () {
         }
     }
 
-    delete user;
     return 0;
 }

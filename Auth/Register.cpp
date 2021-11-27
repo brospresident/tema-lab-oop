@@ -1,6 +1,6 @@
 #include "./Register.h"
 
-User* Register::tryRegisterUser(std::string name, std::string password, std::string confirmPassword, std::string email) {
+std::unique_ptr<User> Register::tryRegisterUser(std::string name, std::string password, std::string confirmPassword, std::string email) {
     try {
         if (!this->validatePassword(password)) {
             throw "Password must be at least 8 characters long and contain at least one number, one special character and one capital letter.";
@@ -24,21 +24,29 @@ User* Register::tryRegisterUser(std::string name, std::string password, std::str
         std::cout << excp << std::endl;
     }
 
-    return new User();
+    return std::unique_ptr<User>();
 }
 
-User* Register::registerUser(std::string name, std::string encodedPassword, std::string email) {
+/*
+    First line of the file is the username
+    Second line of the file is the encrypted password
+    Third line of the file is the email
+    Fourth line of the file is the balance
+    Fifth line of the file is the operator rights
+*/
+
+std::unique_ptr<User> Register::registerUser(std::string name, std::string encodedPassword, std::string email) {
     UserWriter* uw = new UserWriter(name, "./Data/Users/", "txt");
     std::vector<std::string> userData = {  name,
                                             encodedPassword,
                                             email,
                                             "0",
-                                            "1",
+                                            "0",
                                         };
     uw->write(userData); 
     std::cout << "User " << name << " registered successfully" << std::endl;
     delete uw;
-    return new User (
+    return std::make_unique<User> (
         name,
         encodedPassword,
         email

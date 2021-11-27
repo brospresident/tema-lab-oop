@@ -1,6 +1,6 @@
 #include "./Login.h"
 
-User* Login::tryLoginUser(std::string name, std::string password) {
+std::unique_ptr<User> Login::tryLoginUser(std::string name, std::string password) {
     try {
         if (!this->existsUser(name)) {
             throw "That user is not in our database!";
@@ -23,22 +23,33 @@ User* Login::tryLoginUser(std::string name, std::string password) {
         std::cout << excp << std::endl;
     }
 
-    return new User();
+    return std::make_unique<User>();
 }
 
-User* Login::loginUser(const std::vector<std::string> userData) {
+std::unique_ptr<User> Login::loginUser(const std::vector<std::string> userData) {
     bool isOperator = false;
 
     int balance = stoi(userData[3]);
     if (userData[4] == "1") {
         isOperator = true;
     }
-    return new User (
+    if (isOperator) {
+        return std::make_unique<Operator>(
+            userData[0],
+            userData[1],
+            userData[2],
+            balance,
+            true,
+            true
+        );
+    }
+
+    return std::make_unique<User> (
         userData[0],
         userData[1],
         userData[2],
         balance,
-        isOperator,
+        false,
         true
     );
 }

@@ -5,6 +5,8 @@
 #include <string>
 #include <vector>
 #include "../Flight/flight.h"
+#include "../FileWriter/UserWriter.h"
+#include <memory>
 
 class User {
     private:
@@ -44,6 +46,8 @@ class User {
             This function will print user information.
         */
         void showAccountInformation();
+        void saveUserData();
+        void topUpBalance(int amount);
 
 };
 
