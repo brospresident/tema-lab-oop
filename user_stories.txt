@@ -5,12 +5,14 @@
 5) Metoda sa verific daca exista un user care are acelasi nume deja!!NOT CASE SENSITIVE!!(DONE)
 6) Clasa Register care mosteneste Auth si care sa inregistreze un user(sa ii bage datele in fisier etc)(DONE)
 7) Clasa Login care mosteneste Auth si care sa logheze un user(DONE)
-8) Clasa FileWriter pe care sa o folosesc sa implementez Writere pentru fiecare tip de fisier de care o sa am nevoie(User, Flight deocamdata, vedem pe parcurs ce mai e)
+8) Clasa FileWriter pe care sa o folosesc sa implementez Writere pentru fiecare tip de fisier de care o sa am nevoie(User, Flight deocamdata, vedem pe parcurs ce mai e)(DONE)
 9) Sa poti sa vezi toate optiunile existente in aplicatie(ceva mesaj care sa le prezinte pe toate si codul lor)(DONE)
 10) Sa poti sa vezi toate cursele care mai au locuri disponibile(sa le caute dupa plecare si sosire)
-11) Ca operator sa poti adauga o cursa la o anumita data 
-12) Error handling pentru cursele pe care le adaugi
-13) Error handling la logare si inregistrare
+11) Ca operator sa poti adauga o cursa la o anumita data (DONE)
+12) Error handling pentru cursele pe care le adaugi (DONE)
+13) Error handling la logare si inregistrare(DONE)
 14) Sa poti sa faci rezervare la o anumita cursa (daca se desfasoara in viitor)
-15) Sa poti sa iti adaugi 'bani' in cont ca sa platesti cursa
+15) Sa poti sa iti adaugi 'bani' in cont ca sa platesti cursa(DONE)
 16) Error handling daca nu ai bani suficienti sa platesti cursa
+17) Clasa FileReader pe care sa o folosesc sa implementez Readere pentru fiecare tip de fisier de care o sa am nevoie(DONE)
+18) Mod de salvare a rezervarilor unui user, probabil toate intr-un fisier separat, ceva de genul cum as face cu mysql

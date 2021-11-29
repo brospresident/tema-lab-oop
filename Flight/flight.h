@@ -3,33 +3,40 @@
 
 #include <iostream>
 #include <string>
+#include <boost/date_time/gregorian/gregorian.hpp>
+using namespace boost::gregorian;
 
 class Flight {
     private:
         int id;
         std::string origin;
         std::string destination;
-        std::string date;
-        std::string time;
+        date flightDate;
+        int time;
         int seatsAvailable;
+        int price;
 
     public:
         Flight();
-        Flight(int id, std::string origin, std::string destination, std::string date, std::string time, int seatsAvailable);
+        Flight(int id, std::string origin, std::string destination, std::string date, int time, int seatsAvailable, int price);
         int getId();
         std::string getOrigin();
         std::string getDestination();
-        std::string getDate();
-        std::string getTime();
+        date getDate();
+        int getTime();
         int getSeatsAvailable();
         void setId(int id);
         void setOrigin(std::string origin);
         void setDestination(std::string destination);
         void setDate(std::string date);
-        void setTime(std::string time);
+        void setTime(int time);
         void setSeatsAvailable(int seatsAvailable);
+        bool isAvailable();
+        void toString();
+        void setPrice(int price);
+        int getPrice();
 
-        bool operator == (Flight flight);
+        //bool operator == (Flight flight);
 };
 
 #endif

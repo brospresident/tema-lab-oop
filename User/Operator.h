@@ -4,6 +4,7 @@
 #include "./User.h"
 #include <string>
 #include <iostream>
+#include <regex>
 
 class Operator : public User {
     public:

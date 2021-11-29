@@ -1,12 +1,17 @@
 #include "./flight.h"
 
-Flight::Flight(int id, std::string origin, std::string destination, std::string date, std::string time, int seatsAvailable) {
+Flight::Flight() {
+    this->id = -1;
+}
+
+Flight::Flight(int id, std::string origin, std::string destination, std::string dateString, int time, int seatsAvailable, int price) {
     this->id = id;
     this->origin = origin;
     this->destination = destination;
-    this->date = date;
+    this->flightDate = date(from_simple_string(dateString));
     this->time = time;
     this->seatsAvailable = seatsAvailable;
+    this->price = price;
 }
 
 int Flight::getId() {
@@ -21,11 +26,11 @@ std::string Flight::getDestination() {
     return this->destination;
 }
 
-std::string Flight::getDate() {
-    return this->date;
+date Flight::getDate() {
+    return this->flightDate;
 }
 
-std::string Flight::getTime() {
+int Flight::getTime() {
     return this->time;
 }
 
@@ -45,11 +50,11 @@ void Flight::setDestination(std::string destination) {
     this->destination = destination;
 }
 
-void Flight::setDate(std::string date) {
-    this->date = date;
+void Flight::setDate(std::string d) {
+    this->flightDate = date(from_simple_string(d));
 }
 
-void Flight::setTime(std::string time) {
+void Flight::setTime(int time) {
     this->time = time;
 }
 
@@ -57,7 +62,29 @@ void Flight::setSeatsAvailable(int seatsAvailable) {
     this->seatsAvailable = seatsAvailable;
 }
 
-bool Flight::operator == (Flight flight) {
-    return this->id == flight.getId();
+void Flight::toString() {
+    std::cout << "Flight: " << this->id << " | " << this->origin << " - " << this->destination << " - " << this->flightDate << " - " << this->time << "minutes" << " - " << this->seatsAvailable << " seats available " << " - $" << this->price << std::endl;
+}
+
+bool Flight::isAvailable() {
+    if (this->seatsAvailable == 0) {
+        return false;
+    }
+
+    date now;
+
+    if (this->flightDate < now) {
+        return false;
+    }
+
+    return true;
+}
+
+void Flight::setPrice(int price) {
+    this->price = price;
+}
+
+int Flight::getPrice() {
+    return this->price;
 }
 
