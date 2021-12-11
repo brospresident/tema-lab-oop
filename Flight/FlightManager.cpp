@@ -221,3 +221,19 @@ void FlightManager::printAllExistingFlights() {
         std::cout << msg << std::endl;
     }
 }
+
+int getFlightPrice(FlightManager& flightManager, int id) {
+    try {
+        for (int i = 0; i < flightManager.getFlights().size(); i++) {
+            if (flightManager.getFlights()[i].getId() == id) {
+                return flightManager.getFlights()[i].getPrice();
+            }
+        }
+
+        throw "There is no flight with that id";
+    }
+    catch (const char* msg) {
+        std::cout << msg << std::endl;
+        return -1;
+    }
+}

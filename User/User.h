@@ -6,6 +6,7 @@
 #include <vector>
 #include "../Flight/flight.h"
 #include "../FileWriter/UserWriter.h"
+#include "../Flight/FlightManager.h"
 #include <memory>
 
 class User {
@@ -16,6 +17,7 @@ class User {
         int balance;
         bool isOperator;
         bool isLoggedIn;
+        std::vector<int> bookedFlights;
 
     public:
         User();
@@ -48,6 +50,11 @@ class User {
         void showAccountInformation();
         void saveUserData();
         void topUpBalance(int amount);
+
+        void bookFlight(FlightManager& fm, int flightNumber);
+        void cancelFlightBooking(FlightManager& fm, int flightNumber);
+        std::vector<int> getBookedFlights();
+        void printAllReservations();
 
 };
 

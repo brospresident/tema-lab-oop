@@ -71,9 +71,9 @@ bool Flight::isAvailable() {
         return false;
     }
 
-    date now;
+    date now = day_clock::local_day();
 
-    if (this->flightDate < now) {
+    if (now > this->flightDate) {
         return false;
     }
 

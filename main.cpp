@@ -17,7 +17,7 @@ int main () {
         try {
             std::cout << "Please type your option(0 - exit the app | 1 - register | 2 - login " << std::endl;
             std::cout << "3 - Account information | 4 - Find flight by origin and destination | 5 - Book flight" << std::endl;
-            std::cout << "6 - Top up your balance | 7 - See available flights):" << std::endl;
+            std::cout << "6 - Top up your balance | 7 - See available flights | 11 - Cancel booking | 12 - See your reservations):" << std::endl;
             if (user->getIsOperator()) {
                 std::cout << "Your operator rights: " << std::endl;
                 std::cout << "8 - Add new flight | 9 - Delete flight | 10 - See all existing flights" << std::endl;
@@ -92,6 +92,23 @@ int main () {
                 }
                 else throw "You are not logged in!";
             }
+            else if (option == 5) {
+                if (!user->getIsLoggedIn()) {
+                    throw "You are not logged in!";
+                }
+
+                std::cout << "Please type in the origin and destination of the flight you want to book: " << std::endl;
+                std::string origin, destination;
+                std::cin >> origin >> destination;
+
+                flightManager.findFlightByOriginAndDestination(origin, destination);
+
+                std::cout << "Please type in the flight number you want to book: " << std::endl;
+                int flightNumber;
+                std::cin >> flightNumber;
+
+                user->bookFlight(flightManager, flightNumber);
+            }
             else if (option == 6) {
                 std::cout << "Type in the amount of money you want to put in your wallet: ";
                 int amount;
@@ -162,6 +179,24 @@ int main () {
                 }
 
                 flightManager.printAllExistingFlights();
+            }
+            else if (option == 11) {
+                if (!user->getIsLoggedIn()) {
+                    throw "You are not logged in!";
+                }
+
+                std::cout << "Please type in the id of the flight you want to cancel: " << std::endl;
+                int id;
+                std::cin >> id;
+
+                user->cancelFlightBooking(flightManager, id);
+            }
+            else if (option == 12) {
+                if (!user->getIsLoggedIn()) {
+                    throw "You are not logged in!";
+                }
+
+                user->printAllReservations();
             }
             else {
                 std::cout << "Invalid option!" << std::endl;

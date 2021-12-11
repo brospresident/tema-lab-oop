@@ -24,6 +24,10 @@ class FlightManager {
         bool checkCityName(std::string cityName);
         void removeFlight(int id);
         void printAllExistingFlights();
+
+        friend int getFlightPrice(FlightManager& flightManager, int id);
 };
+
+int getFlightPrice(FlightManager& flightManager, int id);
 
 #endif

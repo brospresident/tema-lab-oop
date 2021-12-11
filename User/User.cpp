@@ -67,14 +67,6 @@ void User::setBalance(int balance) {
     this->balance = balance;
 }
 
-// void User::removeReservedFlight(Flight flight) {
-//     for (int i = 0; i < this->reservedFlights.size(); i++) {
-//         if (this->reservedFlights[i] == flight) {
-//             this->reservedFlights.erase(this->reservedFlights.begin() + i);
-//         }
-//     }
-// }
-
 bool User::getIsLoggedIn() {
     return this->isLoggedIn;
 }
@@ -110,7 +102,7 @@ void User::saveUserData() {
                                             this->password,
                                             this->email,
                                             std::to_string(balance),
-                                            std::to_string(isOperator),
+                                            std::to_string(isOperator)
                                         };
 
     fr->write(userData);
@@ -130,6 +122,59 @@ void User::topUpBalance(int amount) {
     }
     catch (const char* msg) {
         std::cout << msg << std::endl;
+    }
+}
+
+void User::bookFlight(FlightManager& fm, int flight) {
+    try {
+        if (!this->isLoggedIn) {
+            throw "You must be logged in!";
+        }
+        if (this->balance < getFlightPrice(fm, flight)) {
+            throw "You do not have enough money to book this flight.";
+        }
+        this->balance -= getFlightPrice(fm, flight);
+        std::cout << "Successfully booked flight " << flight << "." << std::endl;
+        this->bookedFlights.push_back(flight);
+        this->saveUserData();
+    }
+    catch (const char* msg) {
+        std::cout << msg << std::endl;
+    }
+}
+
+void User::cancelFlightBooking(FlightManager& fm, int flight) {
+    try {
+        if (!this->isLoggedIn) {
+            throw "You must be logged in!";
+        }
+
+        if (this->bookedFlights.size() == 0) {
+            throw "You have no booked flights.";
+        }
+
+        if (std::find(this->bookedFlights.begin(), this->bookedFlights.end(), flight) == this->bookedFlights.end()) {
+            throw "You have not booked this flight.";
+        }
+
+        this->balance += getFlightPrice(fm, flight);
+        std::cout << "Successfully canceled flight " << flight << "." << std::endl;
+        this->bookedFlights.erase(std::remove(this->bookedFlights.begin(), this->bookedFlights.end(), flight), this->bookedFlights.end());
+    }
+    catch (const char* msg) {
+        std::cout << msg << std::endl;
+    }
+}
+
+void User::printAllReservations() {
+    if (this->bookedFlights.size() == 0) {
+        std::cout << "You have no booked flights." << std::endl;
+    }
+    else {
+        std::cout << "Your booked flights:" << std::endl;
+        for (int i = 0; i < this->bookedFlights.size(); i++) {
+            std::cout << this->bookedFlights[i] << std::endl;
+        }
     }
 }
 
