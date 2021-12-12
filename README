@@ -1,0 +1,27 @@
+Autentificarea reprezinta procesul prin care verific daca un utilizator este cine pretinde ca este.
+Adica verific daca datele introduse corespund cu cele din baza de date. In cazul in care corespund, acesta se poate autentifica.
+
+Autorizarea este atunci cand un utilizator vrea sa faca o actiune specifica.
+In cazul acestei aplicatii, utilizatorul trebuie sa fie autorizat pentru a putea sa adauge zboruri noi, sa stearga din cele existente sau sa vada toate
+zborurile din baza de date.
+Practic, prin autorizare, utilizatorul primeste acces la functionalitati care nu sunt accesibile oricui.
+Modul in care am realizat autorizarea a fost sa verific daca variabila isOperator este true. In acest caz, utilizatorul era autorizat sa umble in baza de date a 
+zborurilor.
+
+Login-ul este un set de date folosite pentru a autentifica un user. De obicei acestea consta intr-o parola si un nume de utilizator. Pentru cazuri in care e nevoie
+de mai multa securitate, se pot folosi diferite chei generate de pe anumite autentificatoare cum ar fi Google Authenticator.
+
+In mod normal, login-ul se realizeaza astfel:
+1) Utilizatorul intra pe aplicatie iar in functie de state-ul sesiunii lui o sa fie trimis catre home sau catre formularul de login
+2) Daca sesiunea nu mai este valabila sau nu exista e trimis pe formularul de login
+3) Pe formularul de login trebuie sa introduca datele care ii sunt cerute(de obicei user si parola)
+4) In momentul apasarii butonului de login, se face un request catre backend. In back-end se face un query catre baza de date care cauta linia cu user-ul
+din frontend, apoi intoarce aceasta linie. Verificarile urmeaza in backend. Se verifica daca parola introdusa de utilizator corespunde. Daca mai sunt si alte
+criterii necesare pentru verificare sunt verificate si acestea iar in cazul in care s-a trecut de toate verificarile, se genereaza un token unic pentru sesiunea utilizatorului.
+Backend-ul trimite apoi token-ul inapoi catre utilizator si ii ofera acestuia acces in aplicatie. Utilizatorul va avea acces in aplicatie pana cand expira token-ul sau
+se delogheaza singur.
+
+Metode de securitate extra pe care le putem utiliza:
+- Folosirea unui serviciu de verificare de tip two-step. (Google Authenticator)
+- Folosirea amprentei utilizatorului sau a fetei acestuia
+- Folosirea de token-uri (ex. JWT) prin care sa cream o legatura intre sesiunea utilizatorului si aplicatie

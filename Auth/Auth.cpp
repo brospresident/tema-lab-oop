@@ -96,3 +96,13 @@ bool AuthSingleton::validatePassword(std::string password) {
     if (count == 0) return false; 
     return true;
 }
+
+bool AuthSingleton::validateEmail(std::string email) {
+    if (email.find("@") == std::string::npos) {
+        return false;
+    }
+    if (email.find(".") == std::string::npos) {
+        return false;
+    }
+    return true;
+}

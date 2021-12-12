@@ -14,6 +14,10 @@ std::unique_ptr<User> Register::tryRegisterUser(std::string name, std::string pa
             throw "User already exists";
         }
 
+        if (!this->validateEmail(email)) {
+            throw "Email does not have the correct format";
+        }
+
         RSA rsa;
 
         std::string encodedPassword = rsa.encryptPassword(password);
@@ -22,9 +26,10 @@ std::unique_ptr<User> Register::tryRegisterUser(std::string name, std::string pa
     }
     catch (char const* excp) {
         std::cout << excp << std::endl;
+        return std::make_unique<User>();
     }
 
-    return std::unique_ptr<User>();
+    return std::make_unique<User>();
 }
 
 /*

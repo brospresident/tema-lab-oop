@@ -4,7 +4,7 @@ Flight::Flight() {
     this->id = -1;
 }
 
-Flight::Flight(int id, std::string origin, std::string destination, std::string dateString, int time, int seatsAvailable, int price) {
+Flight::Flight(int id, std::string origin, std::string destination, std::string dateString, int time, int seatsAvailable, int price, std::string originCountry, std::string destinationCountry) {
     this->id = id;
     this->origin = origin;
     this->destination = destination;
@@ -12,6 +12,8 @@ Flight::Flight(int id, std::string origin, std::string destination, std::string 
     this->time = time;
     this->seatsAvailable = seatsAvailable;
     this->price = price;
+    this->originCountry = originCountry;
+    this->destinationCountry = destinationCountry;
 }
 
 int Flight::getId() {
@@ -63,7 +65,7 @@ void Flight::setSeatsAvailable(int seatsAvailable) {
 }
 
 void Flight::toString() {
-    std::cout << "Flight: " << this->id << " | " << this->origin << " - " << this->destination << " - " << this->flightDate << " - " << this->time << "minutes" << " - " << this->seatsAvailable << " seats available " << " - $" << this->price << std::endl;
+    std::cout << "Flight: " << this->id << " | " << this->origin << " (" << this->originCountry << ")" << " - " << this->destination << " (" << this->destinationCountry << ")" << " - " << this->flightDate << " - " << this->time << "minutes" << " - " << this->seatsAvailable << " seats available " << " - $" << this->price << std::endl;
 }
 
 bool Flight::isAvailable() {
@@ -88,3 +90,10 @@ int Flight::getPrice() {
     return this->price;
 }
 
+std::string Flight::getOriginCountry() {
+    return this->originCountry;
+}
+
+std::string Flight::getDestinationCountry() {
+    return this->destinationCountry;
+}

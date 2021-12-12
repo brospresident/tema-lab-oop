@@ -15,13 +15,17 @@ class Flight {
         int time;
         int seatsAvailable;
         int price;
+        std::string originCountry;
+        std::string destinationCountry;
 
     public:
         Flight();
-        Flight(int id, std::string origin, std::string destination, std::string date, int time, int seatsAvailable, int price);
+        Flight(int id, std::string origin, std::string destination, std::string date, int time, int seatsAvailable, int price, std::string originCountry, std::string destinationCountry);
         int getId();
         std::string getOrigin();
         std::string getDestination();
+        std::string getOriginCountry();
+        std::string getDestinationCountry();
         date getDate();
         int getTime();
         int getSeatsAvailable();

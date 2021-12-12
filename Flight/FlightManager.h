@@ -17,13 +17,14 @@ class FlightManager {
         bool isFlightAvailable(int id);
         void findFlightByOriginAndDestination(std::string origin, std::string destination);
         void saveFlights();
-        void addFlight(std::string origin, std::string destination, std::string date, int time, int seatsAvailable, int price);
+        void addFlight(std::string origin, std::string destination, std::string date, int time, int seatsAvailable, int price, std::string originCountry, std::string destinationCountry);
         std::vector<Flight> getFlights();
         Flight findFlightById(int id);
         bool checkDate(std::string date);
         bool checkCityName(std::string cityName);
         void removeFlight(int id);
         void printAllExistingFlights();
+        void printFlight(int id);
 
         friend int getFlightPrice(FlightManager& flightManager, int id);
 };

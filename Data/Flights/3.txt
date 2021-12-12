@@ -5,3 +5,5 @@ Paris
 65
 100
 30
+Romania
+France

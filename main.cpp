@@ -7,7 +7,7 @@
 #include "./Flight/FlightManager.h"
 
 int main () {
-    std::cout << "Welcome to BemRom application!" << std::endl;
+    std::cout << "Welcome to Flight Reservation application!" << std::endl;
 
     std::unique_ptr<User> user = std::make_unique<User>();
 
@@ -154,7 +154,15 @@ int main () {
                 std::cout << "Price: " << std::endl;
                 std::cin >> price;
 
-                flightManager.addFlight(origin, destination, date, duration, seatsAvailable, price);
+                std::string originCountry;
+                std::cout << "Origin Country: " << std::endl;
+                std::cin >> originCountry;
+
+                std::string destinationCountry;
+                std::cout << "Destination Country: " << std::endl;
+                std::cin >> destinationCountry;
+
+                flightManager.addFlight(origin, destination, date, duration, seatsAvailable, price, originCountry, destinationCountry);
             }
             else if (option == 9) {
                 if (!user->getIsOperator()) {
@@ -196,7 +204,7 @@ int main () {
                     throw "You are not logged in!";
                 }
 
-                user->printAllReservations();
+                user->printAllReservations(flightManager);
             }
             else {
                 std::cout << "Invalid option!" << std::endl;

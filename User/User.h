@@ -54,7 +54,7 @@ class User {
         void bookFlight(FlightManager& fm, int flightNumber);
         void cancelFlightBooking(FlightManager& fm, int flightNumber);
         std::vector<int> getBookedFlights();
-        void printAllReservations();
+        void printAllReservations(FlightManager& fm);
 
 };
 

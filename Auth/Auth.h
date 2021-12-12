@@ -6,13 +6,22 @@
 #include <filesystem>
 #include <algorithm>
 
+
+/*
+    A class that handles the authentication of the user.
+*/
 class AuthSingleton {
     protected:
         static AuthSingleton* instance;
     
     public:
-        const int minPassLength = 3;
+        const int minPassLength = 8;
         static AuthSingleton* getInstance();
+        /*
+            Checks if the user exists in the database.
+            @param username: The username of the user.
+            @returns true if the user exists, false otherwise.
+        */
         bool existsUser(std::string name);
 
         /*
@@ -26,6 +35,13 @@ class AuthSingleton {
                 - at least one special character
         */
         bool validatePassword(std::string password);
+        
+        /*
+            Checks if the email has the correct format
+            @param email: The email of the user.
+            @returns true if the email has the correct format, false otherwise.
+        */
+        bool validateEmail(std::string email);
 };
 
 

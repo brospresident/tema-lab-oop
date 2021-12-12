@@ -166,14 +166,14 @@ void User::cancelFlightBooking(FlightManager& fm, int flight) {
     }
 }
 
-void User::printAllReservations() {
+void User::printAllReservations(FlightManager& fm) {
     if (this->bookedFlights.size() == 0) {
         std::cout << "You have no booked flights." << std::endl;
     }
     else {
         std::cout << "Your booked flights:" << std::endl;
-        for (int i = 0; i < this->bookedFlights.size(); i++) {
-            std::cout << this->bookedFlights[i] << std::endl;
+        for (int flight : this->bookedFlights) {
+            fm.printFlight(flight);
         }
     }
 }

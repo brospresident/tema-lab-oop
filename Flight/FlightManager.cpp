@@ -17,7 +17,9 @@ FlightManager::FlightManager() {
             flightData[3],
             std::stoi(flightData[4]),
             std::stoi(flightData[5]),
-            std::stoi(flightData[6])
+            std::stoi(flightData[6]),
+            flightData[7],
+            flightData[8]
         );
 
         this->flights.push_back(newFlight);
@@ -100,6 +102,8 @@ void FlightManager::saveFlights() {
         flightData.push_back(std::to_string(this->flights[i].getTime()));
         flightData.push_back(std::to_string(this->flights[i].getSeatsAvailable()));
         flightData.push_back(std::to_string(this->flights[i].getPrice()));
+        flightData.push_back(this->flights[i].getOriginCountry());
+        flightData.push_back(this->flights[i].getDestinationCountry());
         FlightWriter fw(std::to_string(this->flights[i].getId()), "./Data/Flights/", "txt");
         fw.write(flightData);
     }
@@ -109,13 +113,13 @@ std::vector<Flight> FlightManager::getFlights() {
     return this->flights;
 }
 
-void FlightManager::addFlight(std::string origin, std::string destination, std::string date, int time, int seatsAvailable, int price) {
+void FlightManager::addFlight(std::string origin, std::string destination, std::string date, int time, int seatsAvailable, int price, std::string originCountry, std::string destinationCountry) {
     try {
-        if (this->checkCityName(origin) || this->checkCityName(destination)) {
+        if (!this->checkCityName(origin) || !this->checkCityName(destination)) {
             throw "Invalid city name";
         }
 
-        if (this->checkDate(date)) {
+        if (this->checkDate(date) == false) {
             throw "Date does not match the format (YYYY-MM-DD) or it is in the past.";
         }
 
@@ -126,7 +130,9 @@ void FlightManager::addFlight(std::string origin, std::string destination, std::
             date,
             time,
             seatsAvailable,
-            price
+            price,
+            originCountry,
+            destinationCountry
         );
 
         this->flights.push_back(newFlight);
@@ -154,20 +160,8 @@ Flight FlightManager::findFlightById(int id) {
     @returns true if the city name is valid, false otherwise.
 */
 bool FlightManager::checkCityName(std::string cityName) {
-    if (!((cityName.find("0") != std::string::npos) ||
-            cityName.find("1") != std::string::npos ||
-            cityName.find("2") != std::string::npos ||
-            cityName.find("3") != std::string::npos ||
-            cityName.find("4") != std::string::npos ||
-            cityName.find("5") != std::string::npos ||
-            cityName.find("6") != std::string::npos ||
-            cityName.find("7") != std::string::npos ||
-            cityName.find("8") != std::string::npos ||
-            cityName.find("9") != std::string::npos)) {
-        return false;
-    }
-
-    return true;
+    std:: regex pattern("[a-zA-Z]+");
+    return std::regex_match(cityName, pattern);
 }
 
 /*
@@ -179,8 +173,16 @@ bool FlightManager::checkDate(std::string dateStr) {
     const std::regex pattern("^\\d{4}\\-(0[1-9]|1[012])\\-(0[1-9]|[12][0-9]|3[01])$");
 
     date d;
+    date now = day_clock::local_day();
 
-    if (d < date(from_simple_string(dateStr))) {
+    try {
+        d = from_simple_string(dateStr);
+    }
+    catch (const std::exception& e) {
+        return false;
+    }
+
+    if (now > d) {
         return false;
     }
 
@@ -235,5 +237,23 @@ int getFlightPrice(FlightManager& flightManager, int id) {
     catch (const char* msg) {
         std::cout << msg << std::endl;
         return -1;
+    }
+}
+
+void FlightManager::printFlight(int id) {
+    try {
+        if (!this->existsFlight(id)) {
+            throw "There is no flight with that id";
+        }
+
+        for (int i = 0; i < this->flights.size(); i++) {
+            if (this->flights[i].getId() == id) {
+                this->flights[i].toString();
+                return;
+            }
+        }
+    }
+    catch (const char* msg) {
+        std::cout << msg << std::endl;
     }
 }

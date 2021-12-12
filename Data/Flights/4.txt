@@ -1,0 +1,9 @@
+4
+Madrid
+Bucharest
+2022-Mar-03
+25
+35
+100
+Spain
+Romania
